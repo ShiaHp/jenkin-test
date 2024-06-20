@@ -6,11 +6,11 @@ pipeline {
             steps {
                 script {
                     sh '''
-                        sudo -u jenkins docker info
-                        sudo -u jenkins docker version
-                        sudo -u jenkins docker compose version
-                        sudo -u jenkins curl --version
-                        sudo -u jenkins jq --version
+                        sudo docker info
+                        sudo docker version
+                        sudo docker compose version
+                        sudo curl --version
+                        sudo jq --version
                     '''
                 }
             }
