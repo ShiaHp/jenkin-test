@@ -2,17 +2,20 @@ pipeline {
     agent any
 
     stages {
+        stage('verify environment') {
+            steps {
+                sh 'printenv'
+            }
+        }
         stage('verify tooling') {
             steps {
-                script {
-                    sh '''
-                        sudo docker info
-                        sudo docker version
-                        sudo docker compose version
-                        sudo curl --version
-                        sudo jq --version
-                    '''
-                }
+                sh '''
+                    docker info
+                    docker version
+                    docker compose version
+                    curl --version
+                    jq --version
+                '''
             }
         }
     }
