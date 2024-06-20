@@ -1,12 +1,17 @@
 pipeline {
-    agent {
-        docker { image 'node:20.14.0-alpine3.20' }
-    }
+    agent any
+
     stages {
-        stage('Test') {
+        stage('verify tooling') {
             steps {
-                sh 'node --version'
-                echo 'Testing..'
+                sh '''
+                    docker info
+                    docker version
+                    docker compose version
+                    curl --version
+                    jq --version
+                    '''
+
             }
         }
     }
