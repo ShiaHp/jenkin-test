@@ -11,7 +11,7 @@ pipeline {
             steps {
                 script {
                     // Install dependencies
-                    sh 'npm install'
+                     npm install
                 }
             }
         }
@@ -21,7 +21,7 @@ pipeline {
                 script {
                     try {
                         // Run the tests
-                        sh 'npm test'
+                        npm test
                     } catch (Exception e) {
                         echo 'Tests failed. Check the test results for more details.'
                     }
