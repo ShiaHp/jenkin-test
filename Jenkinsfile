@@ -1,14 +1,13 @@
 pipeline {
     agent any
     stages {
-
-    stage('checkout') {
-        steps {
-            echo 'Checkout code'
+        stage('checkout') {
+            steps {
+                echo 'Checkout code'
+            }
         }
-    }
 
-            stage('Install') {
+        stage('Install') {
             steps {
                 script {
                     // Install dependencies
@@ -17,9 +16,7 @@ pipeline {
             }
         }
 
-
-
-                stage('Test') {
+        stage('Test') {
             steps {
                 script {
                     try {
@@ -32,12 +29,4 @@ pipeline {
             }
         }
     }
-
-        post {
-        always {
-            // Notify if the build failed
-
-        }
-    }
-
 }
