@@ -1,12 +1,46 @@
 pipeline {
-    agent {
-        docker { image 'node:latest' }
-    }
+    agent any
     stages {
-        stage('Test') {
+
+    stage('checkout') {
+        steps {
+            echo 'Checkout code'
+        }
+    }
+
+            stage('Install') {
             steps {
-                sh 'node --version'
+                script {
+                    // Install dependencies
+                    sh 'npm install'
+                }
+            }
+        }
+
+
+
+                stage('Test') {
+            steps {
+                script {
+                    try {
+                        // Run the tests
+                        sh 'npm test'
+                    } catch (Exception e) {
+                        currentBuild.result = 'FAILURE'
+                        throw e
+                    }
+                }
             }
         }
     }
+
+        post {
+        always {
+            // Notify if the build failed
+            if (currentBuild.result == 'FAILURE') {
+                echo 'Build failed. Check the test results for more details.'
+            }
+        }
+    }
+
 }

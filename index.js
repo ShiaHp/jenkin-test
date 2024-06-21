@@ -1,2 +1,16 @@
-console.log("Hellooo, world!");
-console.log("Tomorrow will be more better than today");
+const fs = require("fs");
+
+function readFile(filePath) {
+  try {
+    const content = fs.readFileSync(filePath, "utf-8");
+    return content;
+  } catch (error) {
+    if (error.code === "ENOENT") {
+      return "File not found.";
+    } else {
+      return error.message;
+    }
+  }
+}
+
+module.exports = { readFile };
