@@ -38,14 +38,12 @@
 // }
 
 
-
 pipeline {
     agent any
-
     stages {
-        stage('test') {
+        stage('Hello') {
             steps {
-               bash -c "echo Hello World"
+                echo 'Hello World'
             }
         }
     }
