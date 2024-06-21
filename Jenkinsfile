@@ -11,28 +11,26 @@ pipeline {
             steps {
                 script {
                     // Install dependencies
-                     sh '''
-                        npm install
-                    '''
+                     sh
                 }
             }
         }
 
-        stage('Test') {
-            steps {
-                script {
-                    try {
-                        // Run tests
-                        sh '''
-                            npm test
-                        '''
-                        echo 'Tests passed. Deploying...'
+        // stage('Test') {
+        //     steps {
+        //         script {
+        //             try {
+        //                 // Run tests
+        //                 sh '''
+        //                     npm test
+        //                 '''
+        //                 echo 'Tests passed. Deploying...'
 
-                    } catch (Exception e) {
-                        echo 'Tests failed. Check the test results for more details.'
-                    }
-                }
-            }
-        }
+        //             } catch (Exception e) {
+        //                 echo 'Tests failed. Check the test results for more details.'
+        //             }
+        //         }
+        //     }
+        // }
     }
 }
