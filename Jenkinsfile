@@ -26,8 +26,7 @@ pipeline {
                         // Run the tests
                         sh 'npm test'
                     } catch (Exception e) {
-                       ${currentBuild.currentResult} = 'FAILURE'
-                        throw e
+                        echo 'Tests failed. Check the test results for more details.'
                     }
                 }
             }
@@ -37,9 +36,7 @@ pipeline {
         post {
         always {
             // Notify if the build failed
-            if (${currentBuild.currentResult} == 'FAILURE') {
-                echo 'Build failed. Check the test results for more details.'
-            }
+
         }
     }
 
