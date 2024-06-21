@@ -57,7 +57,7 @@ pipeline {
     }
     stage('Run tests against the container') {
       steps {
-        bat 'curl http://localhost:3000/param?query=demo | jq'
+        bat 'curl http://localhost:3000/param?query=demo'
       }
     }
   }
