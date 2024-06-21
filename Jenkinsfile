@@ -1,50 +1,39 @@
-// pipeline {
-//   agent any
-//   stages {
-//     stage("verify tooling") {
-//       steps {
-//         sh '''
-//           docker version
-//           docker info
-//           docker compose version
-//           curl --version
-//           jq --version
-//         '''
-//       }
-//     }
-//     stage('Prune Docker data') {
-//       steps {
-//         sh 'docker system prune -a --volumes -f'
-//       }
-//     }
-//     stage('Start container') {
-//       steps {
-//         sh 'docker compose up -d --no-color --wait'
-//         sh 'docker compose ps'
-//       }
-//     }
-//     stage('Run tests against the container') {
-//       steps {
-//         sh 'curl http://localhost:3000/param?query=demo | jq'
-//       }
-//     }
-//   }
-//   post {
-//     always {
-//       sh 'docker compose down --remove-orphans -v'
-//       sh 'docker compose ps'
-//     }
-//   }
-// }
-
-
 pipeline {
-    agent any
-    stages {
-        stage('Hello') {
-            steps {
-                echo 'Hello World'
-            }
-        }
+  agent any
+  stages {
+    stage("verify tooling") {
+      steps {
+
+          fastfetch
+          docker version
+          docker info
+          docker compose version
+
+      }
     }
+    stage('Prune Docker data') {
+      steps {
+      docker system prune -a --volumes -f
+      }
+    }
+    stage('Start container') {
+      steps {
+       docker compose up -d --no-color --wait
+       docker compose ps
+      }
+    }
+    stage('Run tests against the container') {
+      steps {
+        curl "http://localhost:3000/param?query=demo "
+      }
+    }
+  }
+  post {
+    always {
+      docker compose down --remove-orphans -v
+      docker compose ps
+    }
+  }
 }
+
+
