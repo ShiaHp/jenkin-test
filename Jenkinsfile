@@ -3,35 +3,36 @@ pipeline {
   stages {
     stage("verify tooling") {
       steps {
-
-          fastfetch
+        sh '''
           docker version
           docker info
           docker compose version
-
+          curl --version
+          jq --version
+        '''
       }
     }
     stage('Prune Docker data') {
       steps {
-      docker system prune -a --volumes -f
+        sh 'docker system prune -a --volumes -f'
       }
     }
     stage('Start container') {
       steps {
-       docker compose up -d --no-color --wait
-       docker compose ps
+        sh 'docker compose up -d --no-color --wait'
+        sh 'docker compose ps'
       }
     }
     stage('Run tests against the container') {
       steps {
-        curl "http://localhost:3000/param?query=demo "
+        sh 'curl http://localhost:3000/param?query=demo | jq'
       }
     }
   }
   post {
     always {
-      docker compose down --remove-orphans -v
-      docker compose ps
+      sh 'docker compose down --remove-orphans -v'
+      sh 'docker compose ps'
     }
   }
 }
