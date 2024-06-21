@@ -4,6 +4,7 @@ pipeline {
     stage("verify tooling") {
       steps {
         bat '''
+          echo "Checking tooling versions"
           docker version
           docker info
           docker compose version
