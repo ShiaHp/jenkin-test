@@ -45,9 +45,7 @@ pipeline {
     stages {
         stage('test') {
             steps {
-
                bash -c "echo Hello World"
-               bash -c "node index.js"
             }
         }
     }
