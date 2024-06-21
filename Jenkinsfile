@@ -1,41 +1,12 @@
 pipeline {
-  agent any
-  stages {
-    stage("verify tooling") {
-      steps {
-        sh '''
-          docker version
-          docker info
-          docker compose version
-          curl --version
-          jq --version
-        '''
-      }
+    agent {
+        docker { image 'node:20.14.0-alpine3.20' }
     }
-    // stage('Prune Docker data') {
-    //   steps {
-    //     sh 'docker system prune -a --volumes -f'
-    //   }
-    // }
-    // stage('Start container') {
-    //   steps {
-    //     sh 'docker compose up -d --no-color --wait'
-    //     sh 'docker compose ps'
-    //   }
-    // }
-    // stage('Run tests against the container') {
-    //   steps {
-    //     sh 'curl http://localhost:3000/param?query=demo | jq'
-    //   }
-    // }
-  }
-  post {
-    always {
-        echo 'This will always run'
-    //   sh 'docker compose down --remove-orphans -v'
-    //   sh 'docker compose ps'
+    stages {
+        stage('Test') {
+            steps {
+                sh 'node --version'
+            }
+        }
     }
-  }
 }
-
-
