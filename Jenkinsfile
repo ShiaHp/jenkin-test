@@ -45,8 +45,9 @@ pipeline {
     stages {
         stage('test') {
             steps {
-                sh 'echo "Hello World"'
-                sh 'node index.js'
+                // Use bat to invoke Git Bash and run sh commands
+                bat 'bash -c "echo Hello World"'
+                bat 'bash -c "node index.js"'
             }
         }
     }
