@@ -11,7 +11,9 @@ pipeline {
             steps {
                 script {
                     // Install dependencies
-                     npm install
+                     sh '''
+                        npm install
+                    '''
                 }
             }
         }
@@ -20,8 +22,12 @@ pipeline {
             steps {
                 script {
                     try {
-                        // Run the tests
-                        npm test
+                        // Run tests
+                        sh '''
+                            npm test
+                        '''
+                        echo 'Tests passed. Deploying...'
+
                     } catch (Exception e) {
                         echo 'Tests failed. Check the test results for more details.'
                     }
